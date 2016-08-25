@@ -1,0 +1,44 @@
+//创建策略模式类
+interface IStrategy 
+{
+    public function execute();
+}
+ 
+class PayCreditCard implements IStrategy 
+{
+    public function execute() 
+    {
+        echo "Paying via Credit Card";
+    }
+}
+ 
+class PayCash implements IStrategy 
+{
+    public function execute() 
+    {
+        echo "Paying in cash";
+    }
+}
+//--------------创建payment-------------
+ 
+class Payment 
+{
+    private $_strategy;
+ 
+    public function __construct(IStrategy $strategy) 
+    {
+        $this->_strategy = $strategy;
+    }
+ 
+    public function execute() 
+    {
+        $this->_strategy->execute();
+    }
+}
+//-------------调用策略模式---------------
+//Paying in cash
+$payment1 = new Payment(new PayCash());
+$payment1->execute(); 
+//Paying via Credit Card
+$payment2 = new Payment(new PayCreditCard());
+$payment2->execute(); 

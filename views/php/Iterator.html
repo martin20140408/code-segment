@@ -1,0 +1,35 @@
+//创建Iterator 实现Iterator类
+class Numbers implements Iterator {
+    private $_numbers;
+    private $_currentPos = 0;
+    public function __construct(array $numbers){
+        $this->_numbers = $_numbers;
+    }
+
+    public function current()
+    {
+        return $this->_numbers[$this->_currentPos];
+    }
+    public function key()
+    {
+        return $this->_currentPos;
+    }
+    public function next()
+    {
+        ++$this->_currentPos;
+    }
+    public function rewind()
+    {
+        $this->_currentPos = 0;
+    }
+    public function valid()
+    {
+        return isset($this->_numbers[$this->_currentPos]);
+    }
+}
+
+//调用iterator
+$lot = new Numbers([12,41,23,42]);
+foreach($lot as $k=>$v){
+    echo "Lottonr.".$k." = ".$v;
+}
