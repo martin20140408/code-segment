@@ -1,0 +1,15 @@
+//创建一个数据表
+CREATE TABLE `country` (
+  `code` CHAR(2) NOT NULL PRIMARY KEY,
+  `name` CHAR(52) NOT NULL,
+  `population` INT(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+//插入一条数据
+INSERT INTO `country` VALUES ('AU','Australia',18886000);
+
+//删除一条数据
+DELETE FROM `country` where name = 'Beijing';
+
+//创建一个索引
+CREATE INDEX code_name on country(code asc,name asc);

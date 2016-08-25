@@ -1,0 +1,29 @@
+//生成form表单内容
+$form = \yii\widgets\ActiveForm::begin([
+   'method' => 'get',
+   'action' => ['controller/action'],
+]);
+
+//创建yii\widgets\ActiveField实例
+$form->field($model, 'name');
+
+
+//创建表单label
+$form->field($model, 'name',$options)->label('自定义 Name');
+
+//type= 'text,password,file,hidden'
+$form->field($model, 'name',$options)->input($type, $options);
+$form->field($model, 'name',$options)->textInput($options);
+
+//创建表单文本域 单选按钮
+$form->field($model, 'name',$options)->textarea($options);
+$form->field($model, 'name',$options)->radio($options);
+$form->field($model, 'name',$options)->checkbox($options);
+
+//$items 可以为下拉列表设置默认值
+$form->field($model, 'name',$options)->dropDownList($items,$options);
+$form->field($model, 'name',$options)->listBox($items,$options);
+$form->field($model, 'name',$options)->checkboxList($items,$options);
+$form->field($model, 'name',$options)->radioList($items,$options);
+
+\yii\widgets\ActiveForm::end();

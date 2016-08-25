@@ -1,0 +1,20 @@
+//引入model
+use app\models\Country
+
+//创建form model实例
+$model = new Country;
+
+//将数据传递给实例
+$model->load(\Yii::$app->request->post());
+
+//验证表单数据 
+$model->validate();
+
+//保存数据
+$model->save();
+
+// 获取 country 表的所有行并以 name 排序
+$countries = Country::find()->orderBy('name')->all();
+
+// 获取主键为 “US” 的行
+$country = Country::findOne('US');
