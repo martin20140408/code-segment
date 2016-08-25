@@ -1,0 +1,24 @@
+//创建一个工厂类
+class Factory {
+    protected $name = '';
+    public static function load($id)
+    {
+        return new Factory($id);
+    }
+
+    public static function create()
+    {
+        return new Factory(null);
+    }
+
+    protected function __construct($id){}
+
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+
+//使用工厂模式
+$model = Factory::load(1)->getName();
+$model = Factory::create()->getName();

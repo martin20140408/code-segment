@@ -1,0 +1,22 @@
+// Singleton 单例模式
+class Singleton {
+    private static $_instance = null;
+    private $_data;
+    protected function __construct(){}
+
+    public static function getInstance()
+    {
+        if(self::$_instance === null){
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
+
+    public function test()
+    {
+
+    }
+}
+
+//调用方法
+Singleton::getInstance()->test();

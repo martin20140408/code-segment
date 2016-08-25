@@ -1,0 +1,26 @@
+//创建观察者模式
+class Listener {
+    private $_observer = [];
+    public funtion trigger($data)
+    {
+    	foreach($this->_observer as $obs){
+            $obs->onChanged($this,$data);
+    	}
+    }
+
+    public function addObserver($observer){
+        $this->_observer[] = $observer;
+    }
+}
+
+//创建observer
+class Observer{
+    public function onChanged($sender,$args){
+    	echo( "'$args' added to user list\n" );
+    }
+}
+
+//调用观察者模式
+$listener = new Listener();
+$listener->addObserver(new Observer());
+$listener->trigger($data);
