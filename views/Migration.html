@@ -1,0 +1,7 @@
+//创建一个migrate脚本
+php yiic migrate create menu_update --migrationPath=application.migrations.menu_update
+//执行一个migrate脚本
+php yiic migrate --migrationPath=application.migrations.menu_update
+
+//migrate中创建索引
+$this->createIndex('create_time',self::TABLE_NAME,  "create_time");

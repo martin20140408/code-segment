@@ -1,0 +1,8 @@
+//导入mongo数据
+mongorestore.exe -d weixin --drop F:\mongo\data\wechat_data
+
+//导出mongo数据
+mkdir mongo_app_live_"$H"
+mongodump -h 127.0.0.1 -u app -p df69596e9a  -d mongo_app_live -o mongo_app_live_"$H"/
+tar -czf mongo_app_live_"$H".tar.gz mongo_app_live_"$H"
+rm -rf mongo_app_live_"$H"
