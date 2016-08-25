@@ -1,0 +1,6 @@
+//注册自动加载函数
+spl_autoload_register(function($class){
+	if(file_exists(dirname('.').'/src/'.ucfirst($class).'.class.php')){
+		require dirname('.').'/src/'.ucfirst($class).'.class.php';
+	}
+});

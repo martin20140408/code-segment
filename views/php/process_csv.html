@@ -1,0 +1,32 @@
+//importCsv to array
+function importCsv($filename,$header=[]){
+    $basedir = dirname(".")."/data/";
+    $file = $basedir.$filename;
+    if(file_exists($file) && $header){
+        $csv = array_map("str_getcsv",file($file));
+        array_shift($csv);
+        foreach($csv as $k=>&$v){
+            $v = array_combine($header,$v);
+        }
+        return $csv;
+    }
+    return '';
+}
+
+
+//exportCsv to csv  w/a write/append
+function exportCsv($filename,$data,$setHeader=false){
+    $fp = fopen($filename,"a");
+    if($setHeader){
+        $header = array_keys($data[0]);
+        fputcsv($fp,$header);
+    }
+    foreach($data as $key=>$value){
+        foreach($value as $k=>&$v){
+           if(is_array($v)){$v = json_encode($v);}
+           $v = @iconv('UTF-8','GB2312',$v);
+        }
+        fputcsv($fp,$value);
+    }
+    fclose($fp);
+}

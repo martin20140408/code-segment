@@ -1,0 +1,26 @@
+//curl post
+function Post($url,$params=[])
+{
+   $ch = curl_init();
+   curl_setopt_array($ch, array(
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => json_encode($params)
+   ));
+   output=curl_exec($ch);
+   curl_close($ch);
+   return $output;
+}
+
+//curl get
+function Get($url,$params=[]){
+   $suffix = "";
+   foreach($params as $k => $param){
+      $suffix .= $k ."=".$param."&";	
+   }
+   $seperator = (strpos($url, "?") !== false) ? "&":"?";
+   !empty($suffix) and $url = $url.$seperator.rtrim($suffix,"&");
+   return file_get_contents($url);
+}
