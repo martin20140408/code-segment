@@ -1,4 +1,6 @@
 <?php
+define('VIEW_PATH',dirname('.').'/views/');
+$host = $_SERVER['SCRIPT_NAME'];
 $configArr = require("config.php");
 ?>
 <!DOCTYPE html>
@@ -50,6 +52,16 @@ $configArr = require("config.php");
             <div class="large-2 columns code-column sidebar">
                 <h5 class="sidebar-title">Yii 1.x && 2.x LTS </h5>
                 <hr class="horizonal-line">
+                <ul class="sidebar-top-menu">
+                <?php foreach($configArr['folders'] as $k=>$folder):?>
+                    <li>
+                        <a <?php if($configArr['category'] == $folder): ?> class="active-top-link" <?php endif;?> href="<?php echo $host.'?r='.$folder;?>">
+                            <?php echo str_replace('_', ' ', $folder);?>
+                        </a>
+                    </li>
+                <?php endforeach;?>
+                </ul>
+                <hr class="horizonal-line">
                 <div class="show-for-medium">
 					<form method="post" action="">
 						<button class="warning hollow button check-all-button">All</button>
@@ -69,11 +81,11 @@ $configArr = require("config.php");
             </div>
             <div class="large-10 columns code-column code-container">
                 <div class="grid">
-                    <?php foreach($configArr as $k=>$v):?>
+                    <?php foreach($configArr['files'] as $k=>$v):?>
                         <section class="cmd-description grid-item">
                             <h4><a name="<?php echo $filename = pathinfo($v)['filename'];?>" href="#<?php echo $filename;?>" target="_blank"><?php echo str_replace('_',' ',$filename);?></a> <a><i class="icon-file-text"></i></a></h4>
 						<pre class="prettyprint lang-php">
-							<?php include("views/".$v);?>
+							<?php include(VIEW_PATH.$configArr['category'].'/'.$v);?>
 						</pre>
                         </section>
                     <?php endforeach;?>

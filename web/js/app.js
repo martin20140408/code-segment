@@ -49,6 +49,7 @@ $(function(){
 	$('.sidebar-menu li a').click(clickSidebarItem);
 	$('.mobile-cmd-cell li a').click(clickSidebarItem);
 
+
 	function clickSidebarItem() {
 		var name = $(this).attr('data-name');
 		var cmd_id = 'cmd-' + name;
