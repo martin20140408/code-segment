@@ -1,0 +1,32 @@
+//重写验证类
+class MyValidator extends CFormModel {
+    public function __get($name) {
+        return isset($_POST[$name])?$_POST[$name]:null;
+    }
+    static function myValidate( Array $rules ) {
+        $dummy = new MyValidator();
+        foreach($rules as $rule) {
+            if( isset($rule[0],$rule[1]) ) {
+                $validator = CValidator::createValidator(
+                     $rule[1],
+                     $dummy,
+                     $rule[0],
+                     array_slice($rule,2)
+                );
+                $validator->validate($dummy);
+            }
+            else { echo 'something...'}
+        }
+        return !$dummy->hasErrors();
+    }
+}
+
+//validator使用
+$rules = array(
+    array('name, email', 'required'),
+    array('email', 'email'),
+);
+
+if( MyValidator::myValidate($rules) ) {
+    ....
+}

@@ -1,0 +1,37 @@
+//rule中定义的验证规则
+['AttributeList', 'Validator', 'on'=>'ScenarioList', ...附加选项]
+
+AttributeList 可以是字段或者一个字段组成的数组
+Validator  验证方式
+[boolean, captcha, compare, date, default,
+double,each,email,exist,file,filter,image,
+in,integer,match,required,safe,string,trim,unique,url]
+
+// 用户名必须在 3 到 12 个字符之间
+array('username', 'length', 'min'=>3, 'max'=>12),
+// 在注册场景中，密码password必须和password2一致。
+array('password', 'compare', 'compareAttribute'=>'password2', 'on'=>'register'),
+// 在登录场景中，密码必须接受验证。
+array('password', 'authenticate', 'on'=>'login'),
+
+//on 添加场景验证
+['url','require','on'=>'scenario_1']
+仅在$model->scenario = 'scenario_1';验证
+
+//自定义函数验证  必须返回bool值
+//在model中定义  inlineValidator
+['url','is_url']
+
+function is_url($attribute, $params){
+    return $this->country == Country::USA;
+}
+
+//自定义验证类
+use yii\base\DynamicModel;
+use yii\validators\Validator;
+
+$model = new DynamicModel(['name'=>'hello','email'=>'hello@qq.com']);
+$flag = $model->addRule(['name', 'email'], 'string', ['max' => 128])
+              ->addRule('email', 'email')
+              ->validate();
+$model->getError();
