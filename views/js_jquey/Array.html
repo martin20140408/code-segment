@@ -1,0 +1,5 @@
+//简单的Array操作 merge
+var item = ['hello','world'];
+var applyItem = ['jack','rose'];
+var result = Array.prototype.push.apply(item,applyItem);
+console.log(result,item,new Error().stack);

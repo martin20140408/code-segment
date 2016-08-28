@@ -1,0 +1,30 @@
+//如何实现js的继承
+var Person = function () 
+{
+    this.canTalk = true;
+    this.greet = function ()
+    {
+        if(this.canTalk){
+            console.log('Hi, am '+this.name);
+        }
+    }
+}
+var Student = function (name,title) 
+{
+    this.canTalk = false;
+    this.name = name;
+    this.title = title;
+    this.greet = function ()
+    {
+        if(this.canTalk){
+            console.log('Hi, am student '+this.name);
+        }else{
+            console.log('Hi, am student '+this.name+' '+this.title);
+        }
+    }
+}
+//Student 覆盖了 Person定义的greet方法
+//去掉Student中定义的方法会调用父类 Person.greet()
+Student.prototype = new Person();
+var bob = new Student('bob','hello world');
+bob.greet();

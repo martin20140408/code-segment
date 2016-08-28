@@ -1,11 +1,23 @@
 //创建一个数据表
-CREATE TABLE `country` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` CHAR(2) NOT NULL PRIMARY KEY,
-  `name` CHAR(52) NOT NULL,
-  `population` INT(11) NOT NULL DEFAULT '0',
-   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+create table [if not exists] `country`
+(
+    `id` int(10)  not null ,
+    `name` varchar(30) not null AUTO_INCREMENT,
+    `address` varchar(30) null,
+    `create_time` datetime not null,
+    `status` tinyint(1) not null default 0,
+    Primary key(`id`)
+)
+Engine = innodb
+Default character set = utf8
+Comment = 'country'
+
+//其他字段类型
+tinyint int bigint 
+double  float decimal numberic 
+date datetime time timestamp
+char varchar 
+text
 
 //插入一条数据
 INSERT INTO `country` VALUES ('AU','Australia',18886000);

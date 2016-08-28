@@ -1,0 +1,62 @@
+//js 工厂模式
+function Employee(options)
+{
+  this.options = options;
+  this.init = function ()
+  {
+     $(container).html(this.options.html);
+     this.say();
+  }
+
+  this.say = function () 
+  {
+     log.add(this.options.settings);
+  }
+}
+
+function EmployeeFactory()
+{
+  this.create = function (options)
+  {
+     return new Employee(options);
+  }
+}
+
+var log = (function(){
+    var log = '';
+    return {
+        add:function(msg)
+        {
+            log += msg + '\n';		
+        },
+        show:function()
+        {
+            console.log(log);
+            log = '';
+        }	
+    };
+})();
+
+//工厂模式使用方式
+var Factory = new EmployeeFactory();
+var Person = [];
+var Employ = Factory.create({
+	container:'#container',
+	html:'&lt;div&gt;  am ok &lt;/div&gt;',
+	settings:'22',
+	src:'http://www.baidu.com/'
+});
+
+var Employee = Factory.create({
+	container:'#container',
+	html:'&lt;div&gt; am employ &lt;/div&gt;',
+	settings:'33',
+	src:'http://www.biying.com/'
+});
+
+Person.push(Employ,Employee);
+
+Person.map(function(obj){
+	obj.init();
+});
+log.show();

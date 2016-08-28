@@ -1,0 +1,13 @@
+//js 单例模式
+var Singleton = (function () {
+    var instance;
+    return {
+        getInstance : function () 
+        {
+            if(!instance){
+                instance = new Object("I am the instance");
+            }
+            return instance;	
+        }
+    } 
+})();

@@ -1,0 +1,23 @@
+//construct传递多个参数给对象
+Function.prototype.construct = function(args)
+{
+    var func = this;
+    var constructer = function()
+    {
+        func.apply(this,args);
+    };
+    constructer.prototype = func.prototype;
+    return new constructer();
+}
+
+//在函数后使用apply可以将参数打包在数组中传给函数[多参函数]
+var numbers = [5,6,3,2,7,12,34];
+var container = '#container';
+var data = [numbers,container,{hello:"world"}];
+//使用arguments获取传递的所有参数
+function helloWorld () 
+{
+    console.log(arguments[0]);
+}
+//等同于function helloWorld (numbers,container,options) 
+helloWorld.construct(data);
