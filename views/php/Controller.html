@@ -1,0 +1,36 @@
+//一个简单的控制器类  本文件依赖于View类
+class Controller
+{
+    protected $view;
+    public $title = "snowman";
+    public $layout= "layout/main";
+    public $basedir= APP_PATH;
+    public $data= [];
+
+    public function __construct(){}
+
+    public function __set($key,$value)
+    {
+        $this->$key = $value;
+    }
+
+    public function render($viewName = null,$data=[])
+    {
+        $this->view = View::make($viewName,get_class($this));  ...依赖于View类...
+        $this->data = $data;
+        extract($data);
+        $content = $viewName;
+        require View::getFilePath($this->layout);
+    }
+
+    public function renderPartial($viewName = null,$data=[])
+    {
+        $this->view = View::make($viewName,get_class($this));
+        $data = empty($data)? $this->data : $data;
+        extract($data);
+        require $this->view->viewPath;
+    }
+
+    public function __destruct(){}
+
+}

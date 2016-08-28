@@ -1,0 +1,97 @@
+//使用session类单例模式来处理session
+&lt;?php
+class Session
+{
+    private $_sessionId = null;
+    private static $instance = null;
+    
+    private function __construct() {}
+    
+    public static function getInstance()  
+    {
+        if (self::$instance === null)
+        {
+            self::$instance = new self;
+        }
+        
+        $startSession = self::$instance->startSession();
+
+        if($startSession)
+        {
+            return self::$instance;       ...Return object THE instance of 'Session'....
+        }
+        else
+        {
+            throw new Exception('cannot start session');
+        }
+    }
+    
+    
+    public function startSession()    ...(Re)starts the session....
+    {
+        if ( $this->_sessionId === null )
+        {
+            return session_start();
+        }
+        
+        return false;        ...return    bool    TRUE if the session has been initialized, else FALSE....
+    }
+    
+    
+    public function __set( $name , $value )  ...Example: $instance->foo = 'bar';  ...
+    {
+        $_SESSION[$name] = $value;
+    }
+    
+    
+    public function __get( $name )   ...Example: echo $instance->foo; ...
+    {
+        if ( isset($_SESSION[$name]))
+        {
+            return $_SESSION[$name];
+        }
+    }
+    
+    
+    public function __isset( $name )
+    {
+        return isset($_SESSION[$name]);
+    }
+    
+    
+    public function __unset( $name )
+    {
+        unset( $_SESSION[$name] );
+    }
+    
+    public function destroy()   ...Destroys the current session. ...
+    {
+        if ( $this->sessionState == self::SESSION_STARTED )
+        {
+            $this->sessionState = !session_destroy();
+            unset( $_SESSION );
+            
+            return !$this->sessionState;
+        }
+        
+        return FALSE;
+    }
+
+    public function getSessionId()
+    {
+        if(isset($_COOKIE['PHPSESSIONID']))
+        {
+            $session_id = $_COOKIE['PHPSESSIONID'];
+        }
+        elseif(isset($_GET['PHPSESSIONID']))
+        {
+            $session_id = $_GET['PHPSESSIONID'];
+        }
+        else
+        {
+            $session_id = '';
+        }
+        
+        return $session_id;
+    }
+}

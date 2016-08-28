@@ -1,0 +1,98 @@
+//cache简单配置
+'cache'=>[
+	'class'=>'yii\caching\FileCache'
+]
+
+//获取cache组件
+$cache = \Yii::$app->cache;
+
+//基础使用
+$cache->set("key1","hello world");   ... 设置缓存 ...
+$cache->get("key1");   ... 获取缓存 ...
+$cache->delete("key1");  ... 删除指定缓存 ...
+$cache->flush();  ... 清空所有缓存 ...
+
+//设置缓存的有效期
+$cache->set("key1","hello world"，15);   ... 设置缓存保留15s ...
+
+//缓存文件依赖
+$dependency = new \Yii\caching\FileDependency(['fileName'=>'test.txt']);
+$cache->set("key1","hello world"，3,$dependency);   ... 如果文件修改则缓存立即失效，默认3s失效 ...
+
+//缓存表达式依赖
+$dependency = new \Yii\caching\ExpressionDependency(
+    ['expression'=>'\Yii::$app->request->get("name")']
+);
+$cache->set("key1","hello world"，3,$dependency);   ... 如果表达式值改变则缓存立即失效，默认3s失效 ...
+
+//缓存数据库依赖
+$dependency = new \Yii\caching\DbDependency(
+    ['sql'=>'select count(*) from order']
+);
+$cache->set("key1","hello world"，3,$dependency);   ... 如果查询结果改变则缓存立即失效，默认3s失效 ...
+
+
+//在view视图中使用片段缓存
+&lt;?php if($this->beginCache("cache_div")):?&gt;
+... 自定义html ...
+&lt;?php $this->endCache();?&gt;
+
+//在view视图中使用缓存文件依赖
+&lt;?php $dependency = [
+	'class'=>'\Yii\caching\FileDependency',
+	'fileName'=>'test.txt'
+];?&gt;
+&lt;?php if($this->beginCache("cache_div",["dependency"=>$dependency,"durationg"=>20,"enable"=>true])):?&gt;
+... 自定义html,还可以使用其他几种缓存,也可以嵌套使用...
+&lt;?php $this->endCache();?&gt;
+
+//在控制器behaviors中使用页面缓存
+public function behaviors()
+{
+    return [
+        [
+            "class"=>"yii\filters\PageCache",
+            "duration"=>1000,
+            "only"=>["index","test"], ... 可配置项 仅仅在action index和test生效...
+            "dependency"=>[
+                class'=>'\Yii\caching\FileDependency',
+                'fileName'=>'test.txt' 
+            ],
+        ]
+    ];  
+}
+
+//在控制器behaviors中使用http缓存
+public function behaviors()
+{
+    return [
+        [
+            "class"=>"yii\filters\HttpCache",
+            "lastModified"=>function(){
+                return 1432817566;	...浏览器network会返回 302 not modified...
+            },
+            "etagSeed"=>function(){
+                return 'etagSeed';	...浏览器network会返回 302 not modified...
+            },
+        ]
+    ];  
+}
+
+//http缓存使用实例
+public function behaviors()
+{
+    return [
+        [
+            "class"=>"yii\filters\HttpCache",
+            "lastModified"=>function(){
+                return filemtime('test.txt');	...监听文件修改时间...
+            },
+            "etagSeed"=>function(){
+            	$fp = fopen('test.txt','r');
+            	$title = fgets($fp);
+            	fclose($fp);
+                return $title;	...监听文件修改内容...
+            },
+        ]
+    ];  
+}

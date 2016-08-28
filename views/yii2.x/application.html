@@ -1,0 +1,49 @@
+//component配置数组格式
+[
+    'class' => 'yii\db\Connection',
+    'property1'=>'value1',
+    'property2'=>'value2',
+    'property3'=>[
+        'class' => 'yii\db\OtherClass',
+        'property1'=>'value1',
+        'property2'=>'value2',
+    ],
+]
+
+//模块配置数组格式
+//"booking" 模块以及对应的类  "comment" 模块以及对应的配置数组
+[
+    'modules' => [
+        'booking' => 'app\modules\booking\BookingModule',
+
+        'comment' => [
+            'class' => 'app\modules\comment\CommentModule',
+            'db' => 'db',
+        ],
+    ],
+]
+
+//extensions扩展使用的配置数组
+[
+    'extensions' => [
+        [
+            'name' => 'extension name',
+            'version' => 'version number',
+            'bootstrap' => 'BootstrapClassName',   ... 可选配置，可以为配置数组 ...
+            'alias' => [  
+                '@alias1' => 'to/path1',
+                '@alias2' => 'to/path2',
+            ],
+        ],
+
+        ... 更多像上面的扩展 ...
+
+    ],
+]
+
+//配置数组中定义事件
+[
+    'on beforeRequest' => function ($event) {
+        ... 逻辑代码 ...
+    },
+]

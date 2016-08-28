@@ -1,0 +1,32 @@
+//Yii::$app => yii\web\Application
+//获取当前控制器实例
+Yii::$app->controller
+
+//当前应用component
+'request' => ['class' => 'yii\web\Request'],
+'response' => ['class' => 'yii\web\Response'],
+'session' => ['class' => 'yii\web\Session'],
+'user' => ['class' => 'yii\web\User'],
+'errorHandler' => ['class' => 'yii\web\ErrorHandler'],
+'log' => ['class' => 'yii\log\Dispatcher'],
+'view' => ['class' => 'yii\web\View'],
+'formatter' => ['class' => 'yii\i18n\Formatter'],
+'i18n' => ['class' => 'yii\i18n\I18N'],
+'mailer' => ['class' => 'yii\swiftmailer\Mailer'],
+'urlManager' => ['class' => 'yii\web\UrlManager'],
+'assetManager' => ['class' => 'yii\web\AssetManager'],
+'security' => ['class' => 'yii\base\Security'],
+
+//mysql数据库配置文件
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+];
+
+//Yii 接收 post
+Yii::$app->request->post();
+Yii::$app->request->getRawBody();
+

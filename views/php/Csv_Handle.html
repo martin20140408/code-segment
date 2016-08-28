@@ -1,0 +1,33 @@
+//一个处理csv的类
+class Csv
+{
+    function importCsv($filename,$header=[]){    ...  将csv导出为数组  ...
+        $basedir = dirname(".")."/data/";
+        $file = $basedir.$filename;
+        if(file_exists($file) && $header){
+            $csv = array_map("str_getcsv",file($file));
+            array_shift($csv);
+            foreach($csv as $k=>&$v){
+                $v = array_combine($header,$v);
+            }
+            return $csv;
+        }
+        return '';
+    }
+
+    function exportCsv($filename,$data,$setHeader=false){  ...  将数组导出为csv文件  ...
+        $fp = fopen($filename,"a");    ...  w/write  a/append  ...
+        if($setHeader){
+            $header = array_keys($data[0]);
+            fputcsv($fp,$header);
+        }
+        foreach($data as $key=>$value){
+            foreach($value as $k=>&$v){
+               if(is_array($v)){$v = json_encode($v);}
+               $v = @iconv('UTF-8','GB2312',$v);
+            }
+            fputcsv($fp,$value);
+        }
+        fclose($fp);
+    }
+}

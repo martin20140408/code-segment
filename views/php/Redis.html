@@ -1,0 +1,60 @@
+//本文件依赖于Predis，请在composer中安装Predis
+
+//redis 配置数组 /config/redis.php
+return [
+    'scheme' => 'tcp',
+    'host' => '127.0.0.1',
+    'port' => 6379
+
+];
+
+//redis类文件
+&lt;php
+use Predis\Client;
+class Redis{
+    const CONFIG_FILE = '/config/redis.php';  ...  redis 配置数组  ...
+    protected $db;
+    protected static $instance = null;
+
+    protected function __construct()
+    {
+        $this->db = new Client(require APP_PATH.self::CONFIG_FILE);
+    }
+
+    public static function getInstance()
+    {   
+        if(self::$instance === null){
+           self::$instance = new self(); 
+        }
+        return self::$instance;
+    }
+
+    public function get($key,$defauleValue,$expire = null)  ...  redis get方法  ...
+    {
+        if(!($result = $this->db->get($key))){
+            if($expire){
+                $this->db->psetex($key,$expire,$defauleValue);
+            }else{
+                $this->db->set($key,$defauleValue);
+            }
+            $result = $defauleValue;
+        }
+        return $result;
+    }
+
+    public function set($key,$defauleValue,$expire = null)  ...   redis set方法    ...
+    {
+        if($expire){
+            $this->db->psetex($key,$expire,$defauleValue);
+        }else{
+            $this->db->set($key,$defauleValue);
+        }
+        return $defauleValue;
+    }
+
+    public function delete($key)
+    {
+        return $this->db->del($key);
+    }
+
+}
