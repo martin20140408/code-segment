@@ -30,3 +30,10 @@ return [
 Yii::$app->request->post();
 Yii::$app->request->getRawBody();
 
+//使用yii的autoload
+use {namespace}\path-to\classname;    ... use yii\helpers;...
+Yii::setAlias('{namespace}',dirname('.'));
+//另一种注册的方法 Yii::$classMap['yii\helpers\classname'] = '@{namespace}/path-to/classname.php';
+classname::load('hello');   ... yii\helpers\classname::load('hello') ...
+
+
