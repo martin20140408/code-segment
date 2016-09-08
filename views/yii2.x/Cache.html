@@ -1,6 +1,6 @@
 //cache简单配置
 'cache'=>[
-	'class'=>'yii\caching\FileCache'
+    'class'=>'yii\caching\FileCache'
 ]
 
 //获取cache组件
@@ -55,7 +55,7 @@ public function behaviors()
             "duration"=>1000,
             "only"=>["index","test"], ... 可配置项 仅仅在action index和test生效...
             "dependency"=>[
-                class'=>'\Yii\caching\FileDependency',
+                'class'=>'\Yii\caching\FileDependency',
                 'fileName'=>'test.txt' 
             ],
         ]
