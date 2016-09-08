@@ -15,26 +15,59 @@ classmap适合加载单个文件，alias适合整个文件夹的文件都加载
 
 
 #Yii2自带的19个命名空间及作用[不包含test]，classmap方式加载的类
-#用法use yii\base\View;
+#用法use yii\base\View;查看classes.php可获得
 base    核心基类命名空间
+behaviors
 capcha  处理验证码
+caching
 data
+db
 di
+filters
+grid
 helpers
 i18n
+log
+mail
+rbac
+mutex
+rest
 validators
 web
+widgets
 
-#项目中自带的命名空间，alias方式加载的类
-var_dump(Yii::$alias);
+#项目中自带的命名空间，alias方式加载的类,var_dump(Yii::$alias)可获得
 @common
 @frontend
 @backend
 @console
-@app
+@app   默认frontend
 @vendor
 @runtime
-@web
-@webroot
-@yii ...一堆...
-@kartik ...一堆...
+@web   默认为空
+@webroot  默认为app下的web目录
+@yii ...一个数组，如果查找alias root是数组会继续处理...
+@kartik ...一个数组，如果查找alias root是数组会继续处理，extensions.php查看...
+
+#项目中使用的组件，默认制定class
+#在yii\base\Application的construct,打印$config
+request
+response
+session
+user
+urlManager
+assetManager
+view
+errorHandle   ...yii\web...
+cache
+authManager
+log
+db
+formatter
+i18n
+mailer
+security
+
+#获取module
+#在yii\base\Application的construct,打印$config,获取全部modules
+Yii::$app->getModule('input');
