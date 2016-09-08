@@ -1,2 +1,19 @@
 //在view中引入js文件,载入index.php相对位置的文件
+$js = &lt;&lt;&lt;jsCode
+console.log('hello world');
+&lt;&lt;&lt;jsCode;
+$this->registerJs($js);
 $this->registerJsFile('/js/pages/input/dataSource.js');
+$this->registerJsFile('/js/pages/input/dataSource.js',['position'=>\yii\web\View::POS_HEAD]);
+$this->registerCssFile('/css/dataSource.css');
+
+//创建一个面包屑
+$this->params['breadcrumbs'][] = $this->title;
+echo Breadcrumbs::widget(
+    [
+        'link'=>$this->params['breadcrumbs']
+    ]
+);
+
+//翻译 在messages目录下面语言包中app.php写翻译
+Yii::t('app','hello world');

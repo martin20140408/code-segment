@@ -30,3 +30,7 @@ return [
 Yii::$app->request->post();
 Yii::$app->request->getRawBody();
 
+//注册view变量
+Yii::setAlias('@webroot', dirname(__FILE__));
+Yii::getAlias('@webroot', dirname(__FILE__));
+

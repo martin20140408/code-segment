@@ -1,0 +1,34 @@
+#基于配置的形式使用theme
+#在配置文件中components输入配置数组
+'view' => [
+   'theme' => [
+       'pathMap' => [ 
+            '@app/views' => [ 
+                '@app/themes/basic',
+            ]
+        ],
+        'baseUrl'=>'@web/themes/basic'
+    ],
+]
+
+#基于后台配置
+#重写yii\web\View 的init方法 lulucms
+public function init()
+{
+    $currentTheme = CommonUtility::getCurrentTheme();
+    $theme = '@app/themes/' . $currentTheme;
+    $config = [
+        'pathMap' => [
+            '@app/views' => [
+                $theme, 
+                '@app/themes/basic'
+            ], 
+            '@app/modules' => $theme . '/modules', 
+            '@app/widgets' => $theme . '/widgets'
+        ], 
+        'baseUrl' => '@web/themes/basic'
+    ];
+    $this->theme = new Theme($config);
+    parent::init();
+}
+#在helper中定义getThemeUrl
