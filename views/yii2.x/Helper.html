@@ -1,2 +1,10 @@
+use yii\helpers\Html;
 //创建提交button
 Html::submitButton('Submit', ['class' => 'btn btn-primary']);
+
+//创建一个html标签对和内容
+Html::tag($name,$content,$options);
+
+//创建一个html标签对和内容（二）
+Html::beginTag($name,$options);
+Html::endTag();

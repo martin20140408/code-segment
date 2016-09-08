@@ -1,0 +1,39 @@
+#reference
+<a href= 'https://github.com/select2/select2'>点击跳转 : github </a>
+<a href= 'https://select2.github.io/examples.html#basics'>点击跳转 : select2 demo </a>
+
+#个性化select
+&lt;script type="text/javascript" src="/js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/js/select2.full.js"&gt;&lt;/script&gt;
+
+#example
+&lt;select class="js-example-data-array-selected"&gt;
+  &lt;option value="2" selected="selected"&gt;duplicate&lt;/option&gt;
+&lt;/select&gt;
+
+
+&lt;script type="text/javascript"&gt;
+    var data = [
+        { id: 0, text: 'enhancement' }, 
+        { id: 1, text: 'bug' }, 
+        { id: 2, text: 'duplicate' }, 
+        { id: 3, text: 'invalid' }, 
+        { id: 4, text: 'wontfix' }
+    ];
+
+    $(".js-example-data-array-selected").select2({
+      data: data
+    })
+&lt;/script&gt;
+
+#使用php交互版本
+&lt;select class="js-example-data-array-selected"  _data = '&lt;?php echo ;?&gt;' _ajax = "/url" &gt; 
+&lt;/select&gt;
+
+&lt;script type="text/javascript"&gt;
+    $(".js-example-data-array-selected").on('change',function(){
+        $(this).select2({
+          data: $(this).attr('_data')
+        })
+    });
+&lt;/script&gt;

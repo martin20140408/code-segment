@@ -2,6 +2,9 @@
 //获取当前控制器实例
 Yii::$app->controller
 
+//在模板中获取view
+Yii::$app->view->render();
+
 //当前应用component
 'request' => ['class' => 'yii\web\Request'],
 'response' => ['class' => 'yii\web\Response'],
@@ -33,4 +36,12 @@ Yii::$app->request->getRawBody();
 //注册view变量
 Yii::setAlias('@webroot', dirname(__FILE__));
 Yii::getAlias('@webroot', dirname(__FILE__));
+
+
+//使用yii的autoload
+use {namespace}\path-to\classname;    ... use yii\helpers;...
+Yii::setAlias('{namespace}',dirname('.'));
+//另一种注册的方法 Yii::$classMap['yii\helpers\classname'] = '@{namespace}/path-to/classname.php';
+classname::load('hello');   ... yii\helpers\classname::load('hello') ...
+
 

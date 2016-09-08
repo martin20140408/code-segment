@@ -24,3 +24,19 @@ $country = Country::findOne('US');
 $query = new \yii\db\Query();
 $rows = $query->select(['id', 'email'])->from('user')->Where(['in','id',[1,2,3]])->limit(10)->all();
 User::find()->where(['and','id > 2','id < 5'])->one();
+
+//db  save使用事务
+use Yii;
+use yii\base\Exception;
+$transaction = Yii::$app->db->beginTransaction();
+try{
+    ... your customer code here ...
+    if($model->load(Yii::$app->request->post()) && $model->save()){
+        $transaction->commit();
+        return $this->redirect(['/']);
+    }else{
+        throw new Excepttion('save error');
+    }
+}catch(Exception $e){
+    $transaction->rollBack();
+}

@@ -1,0 +1,26 @@
+#简单的widget
+namespace modules\folder;
+
+use yii\base\Widget;
+class Customer extends Widget
+{
+    public function init()
+    {
+        parent::init();
+    }
+
+    public function run()
+    {
+        ...customer code here...
+    } 
+}
+
+#模板中使用
+use modules\folder\Customer;
+$widget = Customer::begin($config);  ...echo html...
+...customer code use $widget...
+Customer::end();
+
+#模板中使用（二）
+echo Customer::widget($config);
+

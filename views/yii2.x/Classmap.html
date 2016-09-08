@@ -1,0 +1,40 @@
+#yii autoload机制
+Yii中使用BaseYii::autoload($classname)来按需加载类，
+满足以下规则的一种：
+1.查找调用的类是不是在Yii::$classMap这个数组中，
+你可以参考Yii::$classMap['yii\base\Action'] = FILE_PATH.'/base/Action.php'来注册需要自动加载的类;
+FILE_PATH可以是绝对路径，也可以是alias形式(带@)的路径
+
+2.如果不在classmap中但是有命名空间的话，Yii会 默认将namespace(即第一个/前面的部分)加@，
+去查getAlias得到的类，如果文件存在即加载
+Yii::setAlias('myNamespace',dirname('.').'/path1/myNamespace'); ...该语句将根命名空间和绝对路径关联...
+
+总结，如果想使用yii的自动加载，可以采用注册classMap的方式将use的部分作为键，
+文件绝对路径作为值(也可以是已经注册过的alias变量拼接的路径)，或者采用将根命名空间注册为alias的方式，
+classmap适合加载单个文件，alias适合整个文件夹的文件都加载
+
+
+#Yii2自带的19个命名空间及作用[不包含test]，classmap方式加载的类
+#用法use yii\base\View;
+base    核心基类命名空间
+capcha  处理验证码
+data
+di
+helpers
+i18n
+validators
+web
+
+#项目中自带的命名空间，alias方式加载的类
+var_dump(Yii::$alias);
+@common
+@frontend
+@backend
+@console
+@app
+@vendor
+@runtime
+@web
+@webroot
+@yii ...一堆...
+@kartik ...一堆...
