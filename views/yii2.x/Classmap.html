@@ -1,3 +1,20 @@
+#yii自动加载的机制有两种，一种是通过yii类里面的classmap属性注册，一种是yii类里面的alias属性注册
+#第一种只能一次加载一个类，第二种alias的可以把整个文件夹下的类都注册了
+classmap这边注册的核心命名空间有19种[没有yii\test]
+    其中带s的五种，yii\widgets , behaviors ,filters,helpers,validators
+    基类命名空间两个yii\base web
+    框架都具有的基础性能7个 db data log i18n mail caching capcha
+    yii特性的5个 rest auth grid rbac di
+另外还有11个alias注册的命名空间
+    其中和模块相关的有4个 common frontend backend app
+    和目录结构相关的5个 runtime web webroot vendor console
+    两个包命名空间 yii kartik
+还有yii中核心的component组件有16个
+    其中5个和classmap同名的， db cache i18n log maile
+    5个比较常用的request response user session view
+    3个名字带manager的 urlManager authManager assetManager
+    3个不常用的security formatter errorHandle
+
 #yii autoload机制
 Yii中使用BaseYii::autoload($classname)来按需加载类，
 满足以下规则的一种：
@@ -71,3 +88,5 @@ security
 #获取module
 #在yii\base\Application的construct,打印$config,获取全部modules
 Yii::$app->getModule('input');
+
+

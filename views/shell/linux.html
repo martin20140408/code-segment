@@ -1,0 +1,65 @@
+#简单的linux创建的shell
+#${lastname-martin123}  -  变量不存在设置默认值
+#${lastname:-martin123}  :- 变量为空或不存在设置默认值 lastname不被赋值
+#${lastname:=martin123}  := 变量为空或不存在设置默认值 lastname被赋值
+#函数的参数传递和linux脚本一致，都是$0表示脚本名，$1才表示第一个变量
+
+------------code start-----------
+#!/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+#调用一个函数
+function callFunc()
+{
+    RESULT=$(date --date='1 days ago' +%Y-%m-%d)
+}
+#调用test返回文件是否存在
+function existsFunc()
+{
+    RESULT=$(test -e test && echo 'exists' || echo 'not exists') 
+}
+#调用if函数
+function ifFunc()
+{
+    answer=${1}
+    if [ "${answer}" == "n" ] || [ "${answer}" == "N" ]; then
+        RESULT="no"
+    elif [ "${answer}" == "y" ] || [ "${answer}" == "Y" ]; then
+        RESULT="yes"
+    else
+        RESULT="nothing"
+    fi
+}
+#调用switch..case函数
+function caseFunc()
+{
+    case ${1} in
+        'y'|'Y') RESULT="yes"; ;;
+        'n'|'N') RESULT="no"; ;;
+        *) RESULT="nothing"; ;;
+    esac
+}
+#调用foreach函数
+function foreachFunc()
+{
+    for animal in dog cat elepgant
+    do
+        echo "There are ${animal}s"
+    done
+}
+#调用for函数
+function forFunc()
+{
+    for (( i=1; i<=${1}; i=i+1 ))
+    do
+        echo "There are ${i}s"
+    done
+}
+callFunc;
+echo ${RESULT}
+read -p "please input [y/n] : " answer
+caseFunc ${answer}
+echo -e " your answer is " ${name:=martin123}
+callFunc ${name}
+existsFunc
+exit 0

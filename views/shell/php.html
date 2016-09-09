@@ -1,0 +1,20 @@
+#使用php脚本做shell
+#示例 php test he=hello wo=world
+#创建文件 头部声明 
+----------------------file start------------
+#!/usr/bin/env php
+&lt;?php
+path_str(implode('&',array_slice($argv,1)),$argv);  ...获取参数，$argv[0]总是执行脚本文件名...
+echo '... start code ...';
+$answer = trim(fget(STDIN));
+if(checkAnswer($answer)){
+    echo '...processing code...';
+}else{
+    echo '...end processing...';
+    exit(0);
+}
+@shell_exec('ls -lth | head -5');  ...使用php方法执行linux脚本...
+function checkAnswer($answer)
+{
+    return true;
+}

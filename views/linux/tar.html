@@ -5,7 +5,7 @@ tar --list --file=[file].tar.gz
 tar --delete --file=[file].tar.gz [file]
 
 //排除文件夹不压缩到文件
-tar -czf [website] --exclude [file]
+tar -czf [website.tar.gz] [website] --exclude=[file]  --exclude=[file2]
 
 //添加或更新压缩包
 gunzip [file].tar.gz
