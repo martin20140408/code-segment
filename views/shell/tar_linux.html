@@ -1,0 +1,33 @@
+#!/bin/bash
+#PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+#winpty mysql -uroot -p
+PATH=/c/Users/admin/bin:/usr/local/bin:/usr/bin:/bin:/c/Users/admin/bin:/c/Windows/system32:/c/Windows:/c/Windows/System32/WindowsPowerShell/v1.0:/cmd:/e/wamp/bin/mysql/mysql5.6.17/bin:/e/wamp/bin/php/php5.5.12:/usr/bin/vendor_perl:/usr/bin/core_perl
+export PATH
+
+packFolder='code-segment'
+if [ ! -d "${packFolder}" ]; then
+    echo -n "${packFolder} is not a folder"
+    exit 0
+else
+    read -p "please enter version number " version
+    packName="code-segment"${version}".tar.gz"
+    #cd ${packFolder} &&  git pull origin master && cd ../ 
+    site=('dmp.autodsp.cn' 'www.healthdmp.com' 'www.aac-dmp.cn' 'public site')
+    title=('Auto DMP' 'healthdmp' 'AAC' 'public site')
+    theme=('autodsp' 'health' 'AAC' '')
+    for (( i=0; i < ${#site[@]}; ++i ))
+    do
+        echo -e "${i} | ${site[i]} | ${title[i]} | ${theme[i]}"
+    done
+    read -p "please enter version number :" answer
+    if [ ${site[@]:${answer}:1} ]; then
+        exec="tar -czf ${packName} ${packFolder}/ --exclude=.svn "
+        if [ ${site[@]:${answer}:1} != 'public site' ]; then
+            exec=${exec}" --exclude=.git"
+        fi
+        ${exec}
+        cd ${packFolder} & & git tag -a ${version} -m "package code on "$(date +%Y_%m_%d) && cd ../ 
+    else
+        echo -e "wrong params";exit 1;
+    fi
+fi
