@@ -34,24 +34,82 @@ classmap适合加载单个文件，alias适合整个文件夹的文件都加载
 #Yii2自带的19个命名空间及作用[不包含test]，classmap方式加载的类
 #用法use yii\base\View;查看classes.php可获得
 base    核心基类命名空间
-behaviors
-capcha  处理验证码
-caching
-data
-db
-di
-filters
-grid
-helpers
-i18n
-log
-mail
-rbac
-mutex
-rest
-validators
+    常用
+    Exception Theme Action Component Model Module Object Behavior DynamicModel Event  Security   Widget
+    其他
+     ActionEvent ActionFilter  ArrayAccessTrait Arrayable ArrayableTrait  BootstrapInterface  Configurable   ErrorException ErrorHandler   ExitException InlineAction InvalidCallException InvalidConfigException InvalidParamException InvalidRouteException InvalidValueException  ModelEvent  NotSupportedException  UnknownClassException UnknownMethodException UnknownPropertyException UserException  ViewContextInterface ViewEvent ViewRenderer 
 web
+    常用
+    Application AssetBundle AssetManager   Cookie DbSession ErrorAction ErrorHandler IdentityInterface JqueryAsset  Session
+    UploadedFile  UrlManager UrlRule User  ViewAction JsExpression
+    base也有的
+    Controller  View Response Request Application  
+    其他
+     AssetConverter AssetConverterInterface  BadRequestHttpException CacheSession CompositeUrlRule ConflictHttpException   CookieCollection    ForbiddenHttpException GoneHttpException GroupUrlRule HeaderCollection HtmlResponseFormatter HttpException    JsonParser JsonResponseFormatter Link Linkable MethodNotAllowedHttpException NotAcceptableHttpException NotFoundHttpException  RequestParserInterface  ResponseFormatterInterface ServerErrorHttpException  SessionIterator TooManyRequestsHttpException UnauthorizedHttpException UnsupportedMediaTypeHttpException    UrlRuleInterface  UserEvent   XmlResponseFormatter YiiAsset
+behaviors
+    AttributeBehavior BlameableBehavior SluggableBehavior TimestampBehavior
+capcha  处理验证码
+    Captcha CaptchaAction CaptchaAsset CaptchaValidator
+caching
+    常用
+    Cache  FileCache DbCache  DbDependency Dependency ExpressionDependency FileDependency 
+    其他
+    ApcCache ArrayCache  ChainedDependency    DummyCache    MemCache MemCacheServer TagDependency WinCache XCache ZendDataCache
+data
+    常用
+    ActiveDataProvider ArrayDataProvider Pagination
+    其他
+    BaseDataProvider  DataProviderInterface  Sort SqlDataProvider
+db
+    常用
+    ActiveRecord ActiveQuery Command  Connection Migration Query QueryBuilder Schema Transaction BaseActiveRecord
+    其他
+    ActiveQueryInterface ActiveQueryTrait  ActiveRecordInterface ActiveRelationTrait AfterSaveEvent  BatchQueryResult ColumnSchema   DataReader Exception Expression IntegrityException  MigrationInterface    QueryInterface QueryTrait  StaleObjectException TableSchema  mysql|QueryBuilder mysql|Schema
+di
+    Contain Instan ServiceLocator
+filters
+    常用
+    VerbFilter AccessControl  HttpCache PageCache     
+    其他
+      AccessRule ContentNegotiator Cors   RateLimitInterface RateLimiter  auth|AuthInterface auth|AuthMethod auth|CompositeAuth auth|HttpBasicAuth auth|HttpBearerAuth auth|QueryParamAuth
+grid
+    常用
+    GridView
+    其他
+    ActionColu CheckboxColu Colu DataColu GridVi GridViewAss SerialColumn
+helpers
+    常用
+    Html Url StringHelper ArrayHelper Console  FileHelper Json   VarDumper Inflector
+    其他 
+     BaseArrayHelper BaseConsole BaseFileHelper BaseFormatConverter BaseHtml BaseHtmlPurifier BaseInflector BaseJson BaseMarkdown BaseStringHelper BaseUrl BaseVarDumper   FormatConverter  HtmlPurifier   Markdown   
+i18n
+    DbMessageSource Formatter GettextFile GettextMessageSource GettextMoFile GettextPoFile I18N MessageFormatter MessageSource MissingTranslationEvent PhpMessageSource
+log
+    DbTarget Dispatcher EmailTarget FileTarget Logger SyslogTarget Target
+mail
+    BaseMailer BaseMessage MailEvent MailerInterface MessageInterface
+rbac
+    常用
+    Assignment  Item  Permission Role Rule
+    其他
+     BaseManager DbManager  ManagerInterface  PhpManager  
+mutex
+    DbMutex FileMutex Mutex MysqlMutex
+rest
+    常用
+    ActiveController
+    其他
+    Action  Controller CreateAction DeleteAction IndexAction OptionsAction Serializer UpdateAction UrlRule ViewAction   
+validators
+    常用
+    Validator
+    其他
+    BooleanValidator CompareValidator DateValidator DefaultValueValidator EachValidator EmailValidator ExistValidator FileValidator FilterValidator ImageValidator InlineValidator NumberValidator PunycodeAsset RangeValidator RegularExpressionValidator RequiredValidator SafeValidator StringValidator UniqueValidator UrlValidator ValidationAsset 
 widgets
+    常用
+    ActiveForm ListView DetailView Menu ActiveField  ActiveFormAsset Block  Breadcrumbs  Pjax PjaxAsset
+    其他
+    BaseListView   ContentDecorator  FragmentCache InputWidget LinkPager LinkSorter  MaskedInput MaskedInputAsset Spaceless
 
 #项目中自带的命名空间，alias方式加载的类,var_dump(Yii::$alias)可获得
 @common
