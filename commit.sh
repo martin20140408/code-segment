@@ -1,4 +1,4 @@
-time=$(date +%Y_%m_%d_%H_%i_%s)
+time=$(date +%Y_%m_%d_%H)
 git pull origin master
 git status
 git add -A
