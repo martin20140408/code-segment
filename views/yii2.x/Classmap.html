@@ -40,16 +40,22 @@ base    核心基类命名空间
      ActionEvent ActionFilter  ArrayAccessTrait Arrayable ArrayableTrait  BootstrapInterface  Configurable   ErrorException ErrorHandler   ExitException InlineAction InvalidCallException InvalidConfigException InvalidParamException InvalidRouteException InvalidValueException  ModelEvent  NotSupportedException  UnknownClassException UnknownMethodException UnknownPropertyException UserException  ViewContextInterface ViewEvent ViewRenderer 
 web
     常用
-    Application AssetBundle AssetManager   Cookie DbSession ErrorAction ErrorHandler IdentityInterface JqueryAsset  Session
-    UploadedFile  UrlManager UrlRule User  ViewAction JsExpression
+    Application AssetBundle AssetManager  Session  Cookie DbSession User ErrorAction ErrorHandler IdentityInterface JqueryAsset  
+    UploadedFile  UrlManager UrlRule ViewAction JsExpression NotFoundHttpException
     base也有的
     Controller  View Response Request Application  
     其他
-     AssetConverter AssetConverterInterface  BadRequestHttpException CacheSession CompositeUrlRule ConflictHttpException   CookieCollection    ForbiddenHttpException GoneHttpException GroupUrlRule HeaderCollection HtmlResponseFormatter HttpException    JsonParser JsonResponseFormatter Link Linkable MethodNotAllowedHttpException NotAcceptableHttpException NotFoundHttpException  RequestParserInterface  ResponseFormatterInterface ServerErrorHttpException  SessionIterator TooManyRequestsHttpException UnauthorizedHttpException UnsupportedMediaTypeHttpException    UrlRuleInterface  UserEvent   XmlResponseFormatter YiiAsset
+     AssetConverter AssetConverterInterface  BadRequestHttpException CacheSession CompositeUrlRule ConflictHttpException   CookieCollection    ForbiddenHttpException GoneHttpException GroupUrlRule HeaderCollection HtmlResponseFormatter HttpException    JsonParser JsonResponseFormatter Link Linkable MethodNotAllowedHttpException NotAcceptableHttpException   RequestParserInterface  ResponseFormatterInterface ServerErrorHttpException  SessionIterator TooManyRequestsHttpException UnauthorizedHttpException UnsupportedMediaTypeHttpException    UrlRuleInterface  UserEvent   XmlResponseFormatter YiiAsset
 behaviors
-    AttributeBehavior BlameableBehavior SluggableBehavior TimestampBehavior
+    常用
+    TimestampBehavior
+    其他
+    AttributeBehavior BlameableBehavior SluggableBehavior 
 capcha  处理验证码
-    Captcha CaptchaAction CaptchaAsset CaptchaValidator
+    常用
+    Captcha 
+    其他
+    CaptchaAction CaptchaAsset CaptchaValidator
 caching
     常用
     Cache  FileCache DbCache  DbDependency Dependency ExpressionDependency FileDependency 
@@ -62,9 +68,9 @@ data
     BaseDataProvider  DataProviderInterface  Sort SqlDataProvider
 db
     常用
-    ActiveRecord ActiveQuery Command  Connection Migration Query QueryBuilder Schema Transaction BaseActiveRecord
+    ActiveRecord ActiveQuery Command  Connection Migration Query QueryBuilder Schema Transaction BaseActiveRecord Expression
     其他
-    ActiveQueryInterface ActiveQueryTrait  ActiveRecordInterface ActiveRelationTrait AfterSaveEvent  BatchQueryResult ColumnSchema   DataReader Exception Expression IntegrityException  MigrationInterface    QueryInterface QueryTrait  StaleObjectException TableSchema  mysql|QueryBuilder mysql|Schema
+    ActiveQueryInterface ActiveQueryTrait  ActiveRecordInterface ActiveRelationTrait AfterSaveEvent  BatchQueryResult ColumnSchema   DataReader Exception  IntegrityException  MigrationInterface    QueryInterface QueryTrait  StaleObjectException TableSchema  mysql|QueryBuilder mysql|Schema
 di
     Contain Instan ServiceLocator
 filters
@@ -74,7 +80,7 @@ filters
       AccessRule ContentNegotiator Cors   RateLimitInterface RateLimiter  auth|AuthInterface auth|AuthMethod auth|CompositeAuth auth|HttpBasicAuth auth|HttpBearerAuth auth|QueryParamAuth
 grid
     常用
-    GridView
+    GridView DataColumn
     其他
     ActionColu CheckboxColu Colu DataColu GridVi GridViewAss SerialColumn
 helpers
@@ -90,9 +96,9 @@ mail
     BaseMailer BaseMessage MailEvent MailerInterface MessageInterface
 rbac
     常用
-    Assignment  Item  Permission Role Rule
+    Assignment  Item  Permission Role Rule DbManager
     其他
-     BaseManager DbManager  ManagerInterface  PhpManager  
+     BaseManager   ManagerInterface  PhpManager  
 mutex
     DbMutex FileMutex Mutex MysqlMutex
 rest
@@ -110,6 +116,8 @@ widgets
     ActiveForm ListView DetailView Menu ActiveField  ActiveFormAsset Block  Breadcrumbs  Pjax PjaxAsset
     其他
     BaseListView   ContentDecorator  FragmentCache InputWidget LinkPager LinkSorter  MaskedInput MaskedInputAsset Spaceless
+bootstrap
+    Nav Navbar ActiveForm
 
 #项目中自带的命名空间，alias方式加载的类,var_dump(Yii::$alias)可获得
 @common
