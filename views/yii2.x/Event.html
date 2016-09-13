@@ -23,3 +23,14 @@ public function say2($event)
     echo '2222';
 }
 #可以看到，Yii事件的调用甚至不需要使用Event类
+
+#在Component的子类实现behaviors方法,是怎么执行的
+1.首先在Controller中实现behaviors方法，定义配置数组，
+2.经过index.php的$app->run();
+3.之后在Application执行$this->handleRequest方法，接着执行$this->runAction($route, $params);
+4.然后跳转到Module执行$controller->runAction($actionID, $params);
+5.跳到Controller执行$this->beforeAction($action);
+6.跳到Component执行trigger,trigger中ensureBehaviors绑定1中定义的behaviors class，这个类必须继承Behavior类
+    6.1 绑定过程中执行attachBehaviorInternal方法，会调用behavior类的attach方法
+    6.2 AccessControl继承的ActionFilter重写了attach方法，并绑定了事件$owner->on(Controller::EVENT_BEFORE_ACTION, [$this, 'beforeFilter']);
+7.继续执行trigger方法，在foreach中执行6.1中绑定的eventHandle beforeFilter，并执行了beforeAction方法
