@@ -1,0 +1,14 @@
+#Controller与Yii的关系  
+Yii::$app->controller ,Controller对象绑定在app属性中, 
+而action,view,module又绑定在Controller属性,而theme又绑定在view属性
+
+#controller 的beforeAction流程
+首先beforeAction是整个controller的入口，在该方法中包含了trigger方法，
+trigger中有个ensureBehavior的方法是预处理Behavior的，可将controller中定义的behaviors方法定义的配置信息转化为behavior对象
+
+#behavior对当前类的属性和方法进行扩充，使他们用起来像当前类原来就具有的一样，不会覆盖当前类，起补充作用
+#trait同样用来扩充当前类，但是会覆盖当前类的方法，继承父类方法
+#yii中的attachBehavior方法在component中实现的，由于controller是component的子类，所以可以挂载behavior实现类的扩充
+SiteController中有 
+$this->attachBehavior(new Behavior());
+然后$this就具有Behavior的所有方法和属性,[如果当前执行的属性或者方法不存在，程序会遍历components里面的$_behaviors，去执行]

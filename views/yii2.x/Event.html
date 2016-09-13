@@ -1,0 +1,25 @@
+#Event类与Yii的关系  Yii::$app 因为Application继承Component，而Component具有$_events属性
+#Component有一个on($name, $handler, $data = null, $append = true),$name为$_events的key，$handle为值，
+$handle (事件handle)本身具有可执行性，可以是一个函数，类的方法，callback方法等
+
+
+
+#Event类自身具有on off trigger三个标志方法
+#事件和事件handle
+
+#事件怎么使用，因为component已经实现了事件绑定，所以在任意component子类有
+$this->on('hi',[$this,'say'],['data'=>'hello']);
+$this->on('hi',[$this,'say2'],['data'=>'world']);
+$this->trigger('hi');
+#并在该类实现调用的两个方法
+public function say($event)
+{
+    var_dump($event->data);
+    echo '1111111';
+}
+
+public function say2($event)
+{
+    echo '2222';
+}
+#可以看到，Yii事件的调用甚至不需要使用Event类

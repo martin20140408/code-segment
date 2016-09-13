@@ -8,6 +8,9 @@ Container与Yii的关系:  Yii::$container ,保存在属性
 ServiceLocator与Yii的关系  Yii::$app  ,Application继承ServiceLocator,$_components是ServiceLocator的功能
 Controller与Yii的关系  Yii::$app->controller ,Controller对象绑定在app属性中, 而action,view,module又绑定在Controller属性,而theme又绑定在view属性
 
+Behavior和event与Yii的关系   Yii::$app 同components保存在ServiceLocator一样，Behavior和event实例会保存在component类的属性中$_events,$_behaviors
+
+
 //Yii::$app => yii\web\Application
 //获取当前url信息
 Yii::$app->request->url
