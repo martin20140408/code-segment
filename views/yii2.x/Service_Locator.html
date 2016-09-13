@@ -1,6 +1,8 @@
 //使用service locator注册component
-//[[\yii\base\Module]] 继承了 ServiceLocator, modules和application都是服务定位器.
-$locator = new \yii\di\ServiceLocator;
+//[[\yii\base\Module]] 继承了 ServiceLocator,
+// modules和application都是服务定位器.
+//$locator = new \yii\di\ServiceLocator;
+$locator = Yii::$app;
 $locator->setComponents([
   'db' => [
       'class' => 'yii\db\Connection',
@@ -12,7 +14,7 @@ $locator->setComponents([
   ],
 ]);
 //获取component的方式
-$locator->db  或者 $locator->get('db')
+Yii::$app->db  或者 Yii::$app->get('db')
 
 
 //使用配置数组实例化component
@@ -31,9 +33,9 @@ $locator->db  或者 $locator->get('db')
 
 //四种方式注册component
 // 使用类名
-$locator->set('cache', 'yii\caching\FileCache');
+Yii::$app->set('cache', 'yii\caching\FileCache');
 // 使用一个配置数组
-$locator->set('db', [
+Yii::$app->set('db', [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
@@ -41,8 +43,8 @@ $locator->set('db', [
     'charset' => 'utf8',
 ]);
 // 使用匿名函数
-$locator->set('cache', function ($params) {
+Yii::$app->set('cache', function ($params) {
     return new \yii\caching\FileCache;
 });
 // 使用对象实例
-$locator->set('cache', new \yii\caching\FileCache);
+Yii::$app->set('cache', new \yii\caching\FileCache);

@@ -8,6 +8,14 @@ git push origin master
 sudo yum install git
 ssh-keygen -t rsa -C "10010@qq.com"
 
+//git从已有项目创建git
+echo "# zlog" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:martin20140408/zlog.git
+git push -u origin master
+
 //git init 项目	git init	
 git remote add origin git://github.com/fprochazka/phpstorm-livetemplates.git	
 git pull origin master	

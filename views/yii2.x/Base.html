@@ -1,0 +1,36 @@
+
+#继承Mudule
+Application extends 
+    Mudule extends 
+        ServiceLocator extends 
+            Component extends 
+                Object implements 
+                    Configurable
+30个 继承 Component 的类
+    15个挂载在Yii::$app上$_components的 546
+        5个yii\base
+        ErrorHandle Request Response View Security
+        4个yii\web
+        Session User UrlManager AssetManager
+        6个其他
+        Cache Db Mailer Log  Formatter I18N    
+    15个独立使用的，controller特殊点挂载在Yii::$app的controller属性
+        4个yii\base
+        Action Controller Model Theme
+        5个数据库相关
+        Command Connection  BaseDataProvider Migration Query 
+        6个其他
+        ServiceLocator Container  AccessRule Validator Widget ActiveField
+
+#为什么同样继承Components有的不能使用Yii::$app->[component]形式
+$application = new yii\web\Application($config);
+$config数组由配置文件获取，因为Application继承Configurable，所以实例化的时候配置数组的key可以映射到属性，$config数组中key为component的数组会被赋值给ServiceLocator类的属性$_components，使用get的时候会去该数组中获取components实例
+
+
+Behavior extends
+    Object implements 
+        Configurable
+
+Event extends
+    Object implements 
+        Configurable

@@ -1,0 +1,16 @@
+#依赖注入基础使用
+$container = new \yii\di\Container();
+$container->set('cache','yii\caching\DbCache');
+$container->set('db',[
+    'class'=>'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'username'=>'root',
+    'password'=>'',
+    'charset' => 'utf8'
+]);
+
+#单独使用
+$db = $container->get('db');
+#yii中使用,在yii类中已经实例化Yii::$container = new \yii\di\Container();
+Yii::$container->set();
+Yii::$container->get();
