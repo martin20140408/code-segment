@@ -8,6 +8,7 @@ $handle (事件handle)本身具有可执行性，可以是一个函数，类的�
 #事件和事件handle
 
 #事件怎么使用，因为component已经实现了事件绑定，所以在任意component子类有
+#on可以放在behavior子类里面的attach方法中附加
 $this->on('hi',[$this,'say'],['data'=>'hello']);
 $this->on('hi',[$this,'say2'],['data'=>'world']);
 $this->trigger('hi');
@@ -34,3 +35,4 @@ public function say2($event)
     6.1 绑定过程中执行attachBehaviorInternal方法，会调用behavior类的attach方法
     6.2 AccessControl继承的ActionFilter重写了attach方法，并绑定了事件$owner->on(Controller::EVENT_BEFORE_ACTION, [$this, 'beforeFilter']);
 7.继续执行trigger方法，在foreach中执行6.1中绑定的eventHandle beforeFilter，并执行了beforeAction方法
+8.只要是继承了Object类的，都可以重写init方法，这个是每个类都具有的，在实例化的时候就会被调用
