@@ -1,8 +1,8 @@
 #简单的widget
-namespace modules\folder;
+namespace common\widgets;
 
 use yii\base\Widget;
-class Customer extends Widget
+class CustomerWidget extends Widget
 {
     public function init()
     {
@@ -11,16 +11,18 @@ class Customer extends Widget
 
     public function run()
     {
+        echo 'hello world';
         ...customer code here...
+        parent::run();
     } 
 }
 
 #模板中使用
-use modules\folder\Customer;
-$widget = Customer::begin($config);  ...echo html...
+use common\widgets\CustomerWidget;
+$widget = CustomerWidget::begin($config);  ...echo html...
 ...customer code use $widget...
 Customer::end();
 
 #模板中使用（二）
-echo Customer::widget($config);
+echo CustomerWidget::widget($config);  ...这边需要echo才有输出，run里面也需要echo才可以...
 

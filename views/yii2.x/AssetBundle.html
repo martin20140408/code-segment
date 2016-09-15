@@ -1,0 +1,24 @@
+#指定sourcePath  拷贝js文件到@webroot下的asset文件夹下 @webroot
+#指定basePath  直接引用basePath下的js文件 @web
+
+#基类  yii\web\AssetBundle
+#当前类 common\assets\AppAsset
+#属性 public 
+$sourcePath 
+$basePath 
+$js = [$path1,$path2] 
+$css =[$path1,$path2]
+$jsOptions = ['position'=>\yii\web\View::POS_HEAD]
+$depends = ['yii\web\YiiAsset']
+
+public static function addPageScript($view,$jsFile)
+{
+    $view->registerJsFile($jsFile,[AppAsser::className(),'common\assets\AppAsset');
+}
+//registerJsFile 第二个参数 `depends`: asset bundles 类名数组.
+//如何使用上面定义的assetBundle
+//在模板页开头加上regist代码
+use common\assets\AppAsset;
+AppAsset::regist($this); 
+//调用自定义的静态方法
+AppAsset::addPageScript($this,$jsFile);

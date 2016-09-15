@@ -1,24 +1,28 @@
+//BaseYii的四大属性及用途
+$app 系统application
+$alias  加载整个文件夹的命名空间，获取alias后的目录路径
+$classmap 加载单个文件的命名空间，可以重写核心类
+$container 依赖注入，解析配置数组，用配置数组等来实例化对象，包含依赖关系
+
+Container与Yii的关系:  Yii::$container ,保存在属性
+ServiceLocator与Yii的关系  Yii::$app  ,Application继承ServiceLocator,$_components是ServiceLocator的功能
+Controller与Yii的关系  Yii::$app->controller ,Controller对象绑定在app属性中, 而action,view,module又绑定在Controller属性,而theme又绑定在view属性
+
+Behavior和event与Yii的关系   Yii::$app 同components保存在ServiceLocator一样，Behavior和event实例会保存在component类的属性中$_events,$_behaviors
+
+
 //Yii::$app => yii\web\Application
+//获取当前url信息
+Yii::$app->request->url
+Yii::$app->controller->id
+Yii::$app->controller->view->id
+Yii::$app->controller->module->id
+
 //获取当前控制器实例
 Yii::$app->controller
 
 //在模板中获取view
 Yii::$app->view->render();
-
-//当前应用component
-'request' => ['class' => 'yii\web\Request'],
-'response' => ['class' => 'yii\web\Response'],
-'session' => ['class' => 'yii\web\Session'],
-'user' => ['class' => 'yii\web\User'],
-'assetManager' => ['class' => 'yii\web\AssetManager'],
-'errorHandler' => ['class' => 'yii\web\ErrorHandler'],
-'urlManager' => ['class' => 'yii\web\UrlManager'],
-'view' => ['class' => 'yii\web\View'],
-'log' => ['class' => 'yii\log\Dispatcher'],
-'formatter' => ['class' => 'yii\i18n\Formatter'],
-'i18n' => ['class' => 'yii\i18n\I18N'],
-'mailer' => ['class' => 'yii\swiftmailer\Mailer'],
-'security' => ['class' => 'yii\base\Security'],
 
 //mysql数据库配置文件
 return [
@@ -37,11 +41,25 @@ Yii::$app->request->getRawBody();
 Yii::setAlias('@webroot', dirname(__FILE__));
 Yii::getAlias('@webroot', dirname(__FILE__));
 
+//注册命名空间
+Yii::$classMap['yii\helpers\classname'] = '@{namespace}/path-to/classname.php';
 
-//使用yii的autoload
-use {namespace}\path-to\classname;    ... use yii\helpers;...
-Yii::setAlias('{namespace}',dirname('.'));
-//另一种注册的方法 Yii::$classMap['yii\helpers\classname'] = '@{namespace}/path-to/classname.php';
-classname::load('hello');   ... yii\helpers\classname::load('hello') ...
-
-
+//Yii::createObject流程
+//参数类型
+createObject($type,$params=[])
+$type 字符串 配置数组 方法 三种，执行依赖注入的Container类实例化依赖的类,$params是construct的参数,
+$config是属性,如果class继承yii\base\Configurable会分配给属性
+有用的方法：
+$object = createObject($configArr,$params);
+$object = Yii::$container->get($class,$params,$config);
+1.配置数组型
+[
+    'class'=>'namespaced className',
+    'property1'=>'value1',
+    'property2'=>[
+        'class'=>'namespaced className2',
+        'property'=>'value21',
+    ]
+]
+2.字符串型 定义类名
+3.callback  function($container,$params,$config)
