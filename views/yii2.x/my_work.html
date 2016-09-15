@@ -1,0 +1,52 @@
+public function actionIndex()
+{
+    $rs = Yii::$app->db
+    ->createCommand('select * from zlog_operator where id = 1')
+    ->queryAll();
+    $pk = \common\models\User::primaryKey()[0];
+
+    $query = \common\models\User::find()->where([$pk=>unserialize($rs[0]['instance'])[$pk]]);
+    $model = $query->one();
+
+    $model->recovery = 'recovery';
+    //$model = new \common\models\User();
+    var_dump($model->attributes);die();
+
+    try{
+        if(!$model->save()){
+           var_dump($model->getErrors());     
+        }
+    }catch(\yii\base\Exception $e){
+        var_dump($e->getMessage());
+    }
+    die();
+    return $this->render('index');
+}
+
+public function afterSave($insert, $changedAttributes)
+{
+    if($this->recovery != 'recovery'){
+        $this->setOldAttributes (array_merge($this->attributes,$changedAttributes));
+        $params = [
+            ':instance'=>serialize($this->oldAttributes),
+            ':type'=> 'save',
+            ':changed'=>serialize($changedAttributes),
+        ];
+        $rs = Yii::$app->db
+        //->createCommand('select * from zlog_operator where id = 1')
+        ->createCommand('insert into zlog_operator values(null,:instance,:type,:changed)')
+        ->bindValues($params)
+        ->queryAll();
+    }
+
+    //$this->oldAttributes $this->attributes $changedAttributes
+    parent::afterSave($insert, $changedAttributes);
+}
+
+CREATE TABLE `zlog_operator` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `instance` text CHARACTER SET utf8,
+  `type` varchar(20) DEFAULT NULL,
+  `changed_vars` text CHARACTER SET utf8,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8
