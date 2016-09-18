@@ -1,10 +1,35 @@
-//引入model
-use app\models\Country
+//常用的几个类
+ActiveRecord类(save操作使用Connection类，find方法使用ActiveQuery类 即Query子类)
+Query类  具有where,all ,one (调用的是connection类然后执行commond的方法)等方法
+Connection类 与Yii的关系 Yii::$app->db  具有beginTransaction，createCommand($sql,$params)方法
+Command类 最终类 执行query queryAll execute
+
+//检测model改变
+public function afterSave($insert, $changedAttributes)
+{
+    $this->setOldAttributes (array_merge($this->attributes,$changedAttributes));
+    //$this->oldAttributes $this->attributes $changedAttributes
+    parent::afterSave($insert, $changedAttributes);
+}
+
+//衍生的三种写法
+1.AR
+$rs = Country::find()->where()->all();
+2.Query
+$rs = (new Query())->from('contry')->where()->all();
+3.Command
+$rs = Yii::$app->db->createCommond('select * from contry')->bindValues($params)->queryAll();
+//Migration里面的写法，自定义了execute($sql, $params = [])执行了3中的查询
+
+
 
 //创建form model实例
+use app\models\Country
 $model = new Country;
 
 //将数据传递给实例
+$model->attributes = $data;
+//或者
 $model->load(\Yii::$app->request->post());
 
 //验证表单数据 
@@ -14,10 +39,12 @@ $model->validate();
 $model->save();
 
 // 获取 country 表的所有行并以 name 排序
-$countries = Country::find()->orderBy('name')->all();
+$countries = Country::find()->where([])->orderBy('name')->all();
+//查询出array数组形式
+$countries = Country::find()->orderBy('name')->asArray()->all();
 
 // 获取主键为 “US” 的行
-$country = Country::findOne('US');
+$country = Country::findBySql($sql)->all();
 
 
 //query查询
@@ -39,4 +66,17 @@ try{
     }
 }catch(Exception $e){
     $transaction->rollBack();
+}
+//或者在model中开启事物
+public function init()
+{
+   $this->setScenario('transaction'); 
+   parent::init();
+}
+public function transactions()
+{
+   return [
+      'transaction' => self::OP_ALL,
+      //'api' => self::OP_INSERT | self::OP_UPDATE,
+  ];
 }
