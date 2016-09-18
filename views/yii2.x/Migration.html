@@ -1,6 +1,7 @@
 //查看当前脚本的help
 php yii 
 //创建一个migrate脚本
+//注意要在win cmd下执行，不要使用git scm
 php yii migrate/create user --migrationPath=@console/migrations/user
 //执行一个migrate脚本
 php yii migrate --migrationPath=@console/migrations/user
@@ -15,7 +16,7 @@ $table = [];
 function up()
 {
     $sql = @file_get_contents(Yii::getAlias('@console/data/tables.sql'));
-    $transaction = $db->beginTransaction();
+    $transaction = $this->beginTransaction();
     try{
         $this->execute($sql)
         $transaction->commit();
