@@ -1,0 +1,15 @@
+
+<textarea style="margin: 0px 0px 16px; width: 860px; height: 241px;">
+    
+</textarea>
+<div class='container' style="margin: 10px;">
+
+</div>
+<button id="try" class="segreen hollow button check-all-button">Try</button>
+<script>
+$(function(){
+   $('#try').click(function(){
+        $('.container').html($.trim($('textarea').val()));
+    }); 
+});
+</script>
