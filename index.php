@@ -53,7 +53,7 @@ $configArr = require("config.php");
         <div class="row full-width">
 
             <div class="large-2 columns code-column sidebar">
-                <h5 class="sidebar-title">Yii 1.x && 2.x LTS </h5>
+                <h5 class="sidebar-title"><a href='example.php' target="_blank">Yii 1.x && 2.x LTS </a></h5>
                 <hr class="horizonal-line">
                 <ul class="sidebar-top-menu">
                 <?php foreach($configArr['folders'] as $k=>$folder):?>
