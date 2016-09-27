@@ -4,14 +4,6 @@ Query类  具有where,all ,one (调用的是connection类然后执行commond的�
 Connection类 与Yii的关系 Yii::$app->db  具有beginTransaction，createCommand($sql,$params)方法
 Command类 最终类 执行query queryAll execute
 
-//检测model改变
-public function afterSave($insert, $changedAttributes)
-{
-    $this->setOldAttributes (array_merge($this->attributes,$changedAttributes));
-    //$this->oldAttributes $this->attributes $changedAttributes
-    parent::afterSave($insert, $changedAttributes);
-}
-
 //衍生的三种写法
 1.AR
 $rs = Country::find()->where()->all();
@@ -19,6 +11,7 @@ $rs = Country::find()->where()->all();
 $rs = (new Query())->from('contry')->where()->all();
 3.Command
 $rs = Yii::$app->db->createCommond('select * from contry')->bindValues($params)->queryAll();
+//此处有坑，使用execute或者query无结果，正解是queryAll和queryOne
 //Migration里面的写法，自定义了execute($sql, $params = [])执行了3中的查询
 
 

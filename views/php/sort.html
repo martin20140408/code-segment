@@ -1,0 +1,38 @@
+#json_encode返回对象和数组的区别
+$a = ['h','2','d','s'];
+var_dump(json_encode($a));
+//string '["h","2","d","s"]' (length=17)
+unset($a[2]);
+var_dump(json_encode($a));
+//string '{"0":"h","1":"2","3":"s"}' (length=25)
+$a = array_values($a);
+var_dump(json_encode($a));
+//string '["h","2","s"]' (length=13)
+
+
+#排序
+sort
+ksort
+krsort
+usort
+
+#重置
+array_values
+current
+unset
+
+#数组操作
+array_walk   键值操作，单数组，覆盖原值
+array_map    值操作，多数组，有返回值
+array_filter 根据return true|false来过滤
+
+array_map('func',$arr);
+
+#第一种
+function $func(&value,$key,$params);
+array_walk($arr,$func,$params);
+#第二种
+array_walk($arr,function(&values,$key) uses($arr){
+    unset($arr[$key]);
+    //使用unset(￥values无效);
+});

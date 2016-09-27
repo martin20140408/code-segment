@@ -1,5 +1,37 @@
+Mutator methods(赋值方法)
+Accessor methods(访问方法)
+Iteration methods(迭代方法)
+
+var result = [];
+var jsons = {};
 //简单的Array操作 merge
-var item = ['hello','world'];
-var applyItem = ['jack','rose'];
-var result = Array.prototype.push.apply(item,applyItem);
-console.log(result,item,new Error().stack);
+=> var result = Array.prototype.push.apply(['hello','world'],['jack','rose']);
+output: ['hello','world','jack','rose']
+
+=> ['a', 'b', 'c'].concat(1,[1,2,3],[4,5,3])   ...合并数组...
+output: ["a", "b", "c", 1, 1, 2, 3, 4, 5, 3]
+
+=> jsons.index = "key";
+output: {"index":"key"}
+
+=> jsons[1] = "key";
+output: {1:"key"}   ...创建{1:"key",2:"key2"}...
+
+=> [1, 2, 3].indexOf(2) != "-1";   ... 验证字段是否在数组中存在 true ...    
+=>
+function checkExist(ele,arr){
+  return arr.some(function(e){
+    return  e === ele;
+  });  
+}
+ 
+
+//array
+pop push reverse shift sort
+splice(start,deleteCount[,item1,item2.。]) 
+
+[2, 5, 8, 1, 4].some(function(e,i,n){
+    return e > 10;
+}); 
+
+//obj
